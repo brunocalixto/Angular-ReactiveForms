@@ -53,7 +53,7 @@ export class CustomerComponent implements OnInit {
     });
 
     this.customerForm.get('notification').valueChanges.subscribe(
-      value => console.log(value)
+      value => this.setNotification(value)
     );
 
   };
