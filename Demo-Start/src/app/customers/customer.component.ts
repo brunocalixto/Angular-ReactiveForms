@@ -36,7 +36,7 @@ export class CustomerComponent implements OnInit {
   customerForm: FormGroup;
   customer: Customer = new Customer();
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) { };
 
   ngOnInit() {
     this.customerForm = this.fb.group({
@@ -50,8 +50,13 @@ export class CustomerComponent implements OnInit {
       notification: 'email',
       rating: [null, ratingRange(1, 5)],
       sendCatalog: '',
-    })
-  }
+    });
+
+    this.customerForm.get('notification').valueChanges.subscribe(
+      value => console.log(value)
+    );
+
+  };
 
   populateTestData(): void {
     this.customerForm.patchValue({
@@ -59,13 +64,13 @@ export class CustomerComponent implements OnInit {
       lastName: 'Harkness',
       // email: 'jack@torchwood.com', removendo para testar patchValue ao inves de setValue, que precisa enviar um objeto inteiro
       sendCatalog: false
-    })
-  }
+    });
+  };
 
   save() {
     console.log(this.customerForm);
     console.log('Saved: ' + JSON.stringify(this.customerForm.value));
-  }
+  };
 
   setNotification(notifyVia: string) {
     const phoneControl = this.customerForm.get('phone')
@@ -75,6 +80,6 @@ export class CustomerComponent implements OnInit {
       phoneControl.clearValidators();
     }
     phoneControl.updateValueAndValidity();
-  }
+  };
 
-}
+};
